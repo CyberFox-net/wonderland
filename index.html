@@ -30,25 +30,24 @@
     <div id="preloader" class="preloader preloader-entry">
         <div class="content">
             <div class="loader">
-                <img src="https://inplayo.com/wp-content/themes/inplayo/assets/images/logo/inplayo.svg" alt="logo">
+                <!-- <img src="https://inplayo.com/wp-content/themes/inplayo/assets/images/logo/inplayo.svg" alt="logo"> -->
                 <div>loading application</div>
             </div>
         </div>
     </div>
 
-    <a-scene environment="ground:flat; preset: egypt" renderer="antialias: true; colorManagement: true;" camera-position cursor="rayOrigin: mouse"
+    <a-scene environment="ground:flat; preset: japan; seed: 6;fog:0;shadow:true;" renderer="antialias: true; colorManagement: true;" camera-position cursor="rayOrigin: mouse"
         raycaster="far: 100; objects: .raycastable;" loading-screen="enabled: false;">
         <a-assets>
             <!-- <a-asset-item response-type="arraybuffer" id="robot" src="assets/models/robot.glb"></a-asset-item> -->
-            <a-asset-item response-type="arraybuffer" id="store_assets" src="assets/models/assets.glb" ></a-asset-item>
-            <a-asset-item response-type="arraybuffer" id="seating" src="assets/models/seating.glb" ></a-asset-item>
+            <!-- <a-asset-item response-type="arraybuffer" id="store_assets" src="assets/models/assets.glb" ></a-asset-item> -->
             
             <!-- <a-mixin id="random_top"
             position="0 0.01 -6"
             random-block="Cube"
             ></a-mixin> -->
             
-            <a-mixin id="area"
+            <!-- <a-mixin id="area"
                 material="color: white; opacity: 0; shader: phong; side: double;"
                 geometry="primitive: box; width: 6.5; height: 0.1; depth: 8;" 
                 
@@ -73,7 +72,7 @@
                 person-events-component></a-mixin>
             <a-mixin id="vis"
             event-set__areaEnter="_event: areaEnter; material.visible: true;"
-            event-set__areaLeave="_event: areaLeave; material.visible: false;"></a-mixin>
+            event-set__areaLeave="_event: areaLeave; material.visible: false;"></a-mixin> -->
         </a-assets>
 
         <!-- <a-entity mixin="area" position="-6 0 3.5">
@@ -95,8 +94,8 @@
         <a-entity id="rig" movement-controls="constrainToNavMesh: true" kinematic-body>
             <a-box camera position="0 1.6 0" look-controls data-aabb-collider-dynamic="true">
             </a-box>
-            <a-entity id="leftHand" laser-controls="hand: left" raycaster="far: 100; objects: .raycastable;"></a-entity>
-            <a-entity id="rightHand" laser-controls="hand: right" raycaster="far: 100; objects: .raycastable;">
+            <!-- <a-entity id="leftHand" laser-controls="hand: left" raycaster="far: 100; objects: .raycastable;"></a-entity>
+            <a-entity id="rightHand" laser-controls="hand: right" raycaster="far: 100; objects: .raycastable;"> -->
             </a-entity>
         </a-entity>
 

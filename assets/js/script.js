@@ -3,7 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.preloader').setAttribute('hidden', true)
     })
 })
-
+function random(number){
+  return Math.floor(Math.random()*number);;
+}
+function randomColor(){
+  return {r: random(255)/256, g: random(255)/256, b:random(255)/256}
+}
 
 // AFRAME.registerComponent('person-events-component', {
 //     init() {
@@ -51,7 +56,26 @@ AFRAME.registerComponent("envmap", {
   });
 
   
+AFRAME.registerComponent('set-color', {
+    schema: {
+      col: {default: 'red'}
+    },
   
+    init: function () {
+      this.el.addEventListener("model-loaded", e => {
+        let mesh = this.el.getObject3D("mesh");
+        mesh.children[0].material.color = randomColor();
+        mesh.children[0].material.needsUpdate = true;
+        //   mesh.traverse(function(el) {
+        //   if (el.material) {
+        //     el.material.color = this.data.color;
+        //     el.material.needsUpdate = true;
+        //   }
+        // });
+      });
+      
+    }
+});  
 
  
   
