@@ -1,5 +1,19 @@
 
-
+function oneOnSide(side){
+    if(side == "a"){
+        if(getRandomInt(2) == 1){
+            return [4.5,2.8];
+        }else{
+            return [4.5,-2.8];
+        }
+    }else if(side == "b"){
+        if(getRandomInt(2) == 1){
+            return [-4.5,2.8];
+        }else{
+            return [-4.5,-2.8];
+        }
+    }
+}
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max) + 1;
@@ -23,17 +37,19 @@ function generateStreet (){
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(5)+'.glb);');
                 el2.setAttribute('set-color', '');
+                el2.setAttribute('envmap', '');
                 document.getElementById('storeleft'+i).appendChild(el2);
             });
             ['umbrella_'].forEach(item => {
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(4)+'.glb);');
-                el2.setAttribute('set-color', '');
+                el2.setAttribute('envmap', '');
                 document.getElementById('storeleft'+i).appendChild(el2);
             });
             ['midwall_'].forEach(item => {
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(3)+'.glb);');
+                el2.setAttribute('envmap', '');
                 document.getElementById('storeleft'+i).appendChild(el2);
             });
             
@@ -65,17 +81,19 @@ function generateStreet (){
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(5)+'.glb);');
                 el2.setAttribute('set-color', '');
+                el2.setAttribute('envmap', '');
                 document.getElementById('storeright'+i).appendChild(el2);
             });
             ['umbrella_'].forEach(item => {
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(4)+'.glb);');
-                el2.setAttribute('set-color', '');
+                el2.setAttribute('envmap', '');
                 document.getElementById('storeright'+i).appendChild(el2);
             });
             ['midwall_'].forEach(item => {
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(3)+'.glb);');
+                el2.setAttribute('envmap', '');
                 document.getElementById('storeright'+i).appendChild(el2);
             });
 
@@ -101,18 +119,31 @@ function generateStreet (){
         let shift = 10 - i*8;
         el.setAttribute('position', '0 0.01 '+String(shift));
         el.setAttribute('gltf-model', 'src: url(assets/models/street_assets/street_'+getRandomInt(8)+'.glb);');
+        el.setAttribute('envmap', '');
         document.querySelector('a-scene').appendChild(el);
-        [[4.5,2.8],[4.5,-2.8],[-4.5,2.8],[-4.5,-2.8]].forEach(item => {
+        [oneOnSide('a'),oneOnSide('b')].forEach(item => {
             let el2 = document.createElement('a-entity');
             el2.setAttribute('position', String(item[0])+' 0.01 '+String(shift + item[1]));
-            // el2.setAttribute('position', '0 0.01 2');
-            // console.log(String(item[0])+' 0.01 '+String(shift + item[1]))
-            el2.setAttribute('gltf-model', 'src: url(assets/models/street_assets/street_el_'+getRandomInt(5)+'.glb);');
-            // el2.setAttribute('set-color', '');
+            el2.setAttribute('gltf-model', 'src: url(assets/models/street_assets/street_el_'+getRandomInt(4)+'.glb);');
+            el2.setAttribute('envmap', '');
             document.querySelector('a-scene').appendChild(el2);
         });
     }
-    
+    let shift = 0;
+    //add start crossroad
+    // let el_st = document.createElement('a-entity');
+    // shift = 6 + 20;
+    // el_st.setAttribute('position', '0 0.01 '+String(shift));
+    // el_st.setAttribute('gltf-model', 'src: url(assets/models/street_assets/crossroad.glb);');
+    // document.querySelector('a-scene').appendChild(el_st);
+    //add end crossroad
+    // let el_en = document.createElement('a-entity');
+    // shift = 6 - 20 - 10*8;
+    // el_en.setAttribute('position', '0 0.01 '+String(shift));
+    // el_en.setAttribute('gltf-model', 'src: url(assets/models/street_assets/crossroad.glb);');
+    // document.querySelector('a-scene').appendChild(el_en);
   }
   generateStreet ();
+
+
 
