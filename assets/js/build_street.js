@@ -31,12 +31,12 @@ function generateStreet (){
         el.setAttribute('rotation', '0 -90 0');
         document.querySelector('a-scene').appendChild(el);
 
-            
+        let shop_col = randomColorFromList();
 
             ['roof_','floorfirst_','door_','name_','floorsecond_'].forEach(item => {
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(5)+'.glb);');
-                el2.setAttribute('set-color', '');
+                el2.setAttribute('set-color',  "color:"+shop_col);
                 el2.setAttribute('envmap', '');
                 document.getElementById('storeleft'+i).appendChild(el2);
             });
@@ -77,10 +77,13 @@ function generateStreet (){
         el.setAttribute('position', '-11 0 '+String(shift));
         el.setAttribute('rotation', '0 90 0');
         document.querySelector('a-scene').appendChild(el);
+
+        let shop_col = randomColorFromList();
+        // console.log(shop_col);
             ['roof_','floorfirst_','door_','name_','floorsecond_'].forEach(item => {
                 let el2 = document.createElement('a-entity');
                 el2.setAttribute('gltf-model', 'src: url(assets/models/shop_assets/'+item+getRandomInt(5)+'.glb);');
-                el2.setAttribute('set-color', '');
+                el2.setAttribute('set-color', "color:"+shop_col);
                 el2.setAttribute('envmap', '');
                 document.getElementById('storeright'+i).appendChild(el2);
             });
@@ -131,19 +134,19 @@ function generateStreet (){
     }
     let shift = 0;
     //add start crossroad
-    // let el_st = document.createElement('a-entity');
-    // shift = 6 + 20;
-    // el_st.setAttribute('position', '0 0.01 '+String(shift));
-    // el_st.setAttribute('gltf-model', 'src: url(assets/models/street_assets/crossroad.glb);');
-    // document.querySelector('a-scene').appendChild(el_st);
+    let el_st = document.createElement('a-entity');
+    shift = 6 + 20;
+    el_st.setAttribute('position', '0 0.01 '+String(shift));
+    el_st.setAttribute('gltf-model', 'src: url(assets/models/street_assets/crossroad.glb);');
+    document.querySelector('a-scene').appendChild(el_st);
     //add end crossroad
-    // let el_en = document.createElement('a-entity');
-    // shift = 6 - 20 - 10*8;
-    // el_en.setAttribute('position', '0 0.01 '+String(shift));
-    // el_en.setAttribute('gltf-model', 'src: url(assets/models/street_assets/crossroad.glb);');
-    // document.querySelector('a-scene').appendChild(el_en);
+    let el_en = document.createElement('a-entity');
+    shift = 6 - 20 - 10*8;
+    el_en.setAttribute('position', '0 0.01 '+String(shift));
+    el_en.setAttribute('gltf-model', 'src: url(assets/models/street_assets/crossroad.glb);');
+    document.querySelector('a-scene').appendChild(el_en);
   }
-  generateStreet ();
+//   generateStreet ();
 
 
 

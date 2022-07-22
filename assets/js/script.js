@@ -1,21 +1,22 @@
 var envMap;
 
-var texture = new THREE.TextureLoader().load(
-  "assets/hdri/studio_light.png");
-var targetCube = new THREE.WebGLRenderTargetCube(256, 256);
+// var texture = new THREE.TextureLoader().load(
+//   "assets/hdri/studio_light.png");
+// var targetCube = new THREE.WebGLRenderTargetCube(256, 256);
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('a-scene').addEventListener('loaded', () => {
         document.querySelector('.preloader').setAttribute('hidden', true)
         // console.log(document.querySelector('a-scene').renderer);
         var pmremGenerator = new THREE.PMREMGenerator(document.querySelector('a-scene').renderer);
-        new RGBELoader()
-          .load('./scene/hdr_env.hdr', function (texture) {
+        new THREE.RGBELoader()
+          .load('./assets/hdri/piazza_bologni_2k.hdr', function (texture) {
       
             envMap = pmremGenerator.fromEquirectangular(texture).texture;
       
             texture.dispose();
             pmremGenerator.dispose();
+            generateStreet ();
           });
     })
 })
@@ -38,7 +39,7 @@ function hexToRgb(hex) {
 function randomColorFromList(){
   // ['#63B79D','#7AB3DE','#FFC4AB','#F8E6FF','#5C3748','#E5CDC4'];
   let color_list = ['#63B79D','#7AB3DE','#FFC4AB','#F8E6FF','#5C3748','#E5CDC4'];
-  return hexToRgb(color_list[random(1)])
+  return color_list[random(5)]
 }
 
 // AFRAME.registerComponent('person-events-component', {
@@ -68,14 +69,16 @@ AFRAME.registerComponent("envmap", {
       this.el.addEventListener("model-loaded", e => {
         let mesh = this.el.getObject3D("mesh");
 
-        var cubeTex = targetCube.fromEquirectangularTexture(renderer, texture);
+        // var cubeTex = targetCube.fromEquirectangularTexture(renderer, texture);
             mesh.traverse(function(el) {
               if (el.material) {
-                el.material.envMap = cubeTex.texture;
+                // console.log(el.material.name);
+                // el.material.envMap = cubeTex.texture;
+                el.material.envMap = envMap;
                 el.material.envMap.intensity = 0.75;
-                if (el.material.map) {
-                  el.material.map.anisotropy = 4;
-                }
+                if (el.material.alphaMap) el.material.alphaMap.magFilter = THREE.NearestFilter;
+                el.material.alphaTest = 0.5
+                if (el.material.map) el.material.map.anisotropy = 4;
                 el.material.needsUpdate = true;
               }
             });
@@ -88,20 +91,22 @@ AFRAME.registerComponent("envmap", {
   
 AFRAME.registerComponent('set-color', {
     schema: {
-      col: {default: 'red'}
+      color: {default: 'red'}
     },
   
     init: function () {
       this.el.addEventListener("model-loaded", e => {
+          console.log(hexToRgb(this.data.color));
+
         let mesh = this.el.getObject3D("mesh");
         // console.log(mesh.children[0].children[0].material.name);
         if(mesh.children[0].children[0] && mesh.children[0].children[0].material.name[0] != "n"){
           // console.log(mesh.children[0].children[0].material.name);
-        mesh.children[0].children[0].material.color = randomColorFromList();
+        mesh.children[0].children[0].material.color = hexToRgb(this.data.color);
         mesh.children[0].children[0].material.needsUpdate = true;
         }else{
           // console.log(mesh.children[0].material.name);
-        mesh.children[0].material.color = randomColorFromList();
+        mesh.children[0].material.color = hexToRgb(this.data.color);
         mesh.children[0].material.needsUpdate = true;
         }
         
